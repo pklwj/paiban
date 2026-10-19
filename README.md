@@ -84,3 +84,7 @@ node tests/run.js core   # 只跑纯逻辑
 - 导出依赖 [ExcelJS](https://github.com/exceljs/exceljs)（MIT），已随仓库内置，保证离线可用
 - 直接读写 U 盘上的数据文件用到 File System Access API，目前只有 Chromium 系浏览器支持；其他浏览器会退化成「导出 JSON / 导入 JSON」
 - 建议一个文件只在一台电脑上编辑。多个窗口同时打开同一个数据文件，后保存的会覆盖先保存的
+
+## 接手这个项目
+
+改动前先看 [AGENTS.md](AGENTS.md)：里面写了业务规则、导出规格，以及几条「明确要求删掉、不要加回来」的决定。
