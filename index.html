@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>医学影像科排班表</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">排</span>
+    <input id="titleInput" class="title-input" value="医学影像科排班表" spellcheck="false">
+  </div>
+
+  <div class="tools">
+    <label class="field">周起始<input type="date" id="weekStart"></label>
+    <button class="btn" id="btnPeople">人员</button>
+    <button class="btn" id="btnMarks">标记</button>
+    <button class="btn" id="btnDict">设置</button>
+    <button class="btn" id="btnCheck">校验 <span class="badge" id="issueBadge">0</span></button>
+    <button class="btn" id="btnFillCounts">人数自动统计</button>
+    <button class="btn primary" id="btnExport">导出 Excel</button>
+    <div class="menu-wrap">
+      <button class="btn" id="btnMenu">更多 ▾</button>
+      <div class="menu" id="menu">
+        <button data-act="undo">撤销 <kbd>Ctrl+Z</kbd></button>
+        <button data-act="redo">重做 <kbd>Ctrl+Y</kbd></button>
+        <hr>
+        <button data-act="json">导出 JSON 备份</button>
+        <button data-act="import">导入 JSON</button>
+        <hr>
+        <button data-act="connect">连接数据文件（U 盘）</button>
+        <button data-act="saveas">新建数据文件（存到 U 盘）</button>
+        <button data-act="disconnect">断开数据文件</button>
+        <hr>
+        <button data-act="print">打印 / 存 PDF</button>
+        <button data-act="seed">载入示例数据</button>
+        <button data-act="clear" class="danger">清空排班</button>
+        <hr>
+        <button data-act="help">怎么用</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="warnbar" id="warnbar" hidden>
+  <span id="warnText"></span>
+  <span class="grow"></span>
+  <button class="btn tiny ghost" id="warnClose">知道了</button>
+</div>
+
+<main class="gridwrap" id="gridwrap">
+  <table id="grid">
+    <colgroup>
+      <col class="c-name">
+      <col class="c-day"><col class="c-day"><col class="c-day"><col class="c-day">
+      <col class="c-day"><col class="c-day"><col class="c-day">
+      <col class="c-owed">
+    </colgroup>
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+</main>
+
+<footer class="statusbar">
+  <span class="grow"></span>
+  <button class="file-hint" id="fileHint" title="点这里把数据存到 U 盘上的文件">数据存本机</button>
+  <span class="save-hint" id="saveHint"></span>
+  <span class="kbd-hint" id="storeWarn" hidden></span>
+  <span class="kbd-hint">拖动框选 · Shift+方向键 扩选 · Ctrl+C/V 复制粘贴 · Ctrl+D 填充 · Ctrl+Z 撤销</span>
+</footer>
+
+<aside class="issues" id="issues">
+  <div class="issues-head">
+    <b>校验结果</b>
+    <span class="grow"></span>
+    <button class="btn tiny ghost" id="issueClose">收起</button>
+  </div>
+  <div class="issues-body" id="issuesList"></div>
+</aside>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <b id="modalTitle"></b>
+      <button class="x" data-close>✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+
+<script src="vendor/exceljs.min.js"></script>
+<script>
+  if (!window.ExcelJS) {
+    document.write('<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"><\/script>');
+  }
+</script>
+<script src="js/core.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/export.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
